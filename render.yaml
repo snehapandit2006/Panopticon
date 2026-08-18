@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: panopticon-civic
+    runtime: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: file:./sqlite.db
+      - key: OAUTH_SERVER_URL
+        value: https://auth.panopticon.internal
+      - key: BUILT_IN_FORGE_API_URL
+        value: https://api.panopticon.internal
