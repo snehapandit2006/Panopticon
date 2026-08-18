@@ -55,11 +55,11 @@ const SOURCES = {
 };
 
 const LEADERS: Leader[] = [
-  { id: "narendra-modi", name: "Narendra Modi", office: "Prime Minister", party: "BJP", partyName: "Bharatiya Janata Party", avatar: "/avatars/narendra-modi.svg", accent: "#e18a37", tier: "National leader" },
-  { id: "rahul-gandhi", name: "Rahul Gandhi", office: "Member of Parliament", party: "INC", partyName: "Indian National Congress", avatar: "/avatars/rahul-gandhi.svg", accent: "#4d73b4", tier: "National leader" },
-  { id: "mallikarjun-kharge", name: "Mallikarjun Kharge", office: "Party President", party: "INC", partyName: "Indian National Congress", avatar: "/avatars/mallikarjun-kharge.svg", accent: "#5e70a4", tier: "Party leader" },
-  { id: "mamata-banerjee", name: "Mamata Banerjee", office: "State leader", party: "TMC", partyName: "All India Trinamool Congress", avatar: "/avatars/mamata-banerjee.svg", accent: "#7a9ac8", tier: "Regional leader" },
-  { id: "arvind-kejriwal", name: "Arvind Kejriwal", office: "Party leader", party: "AAP", partyName: "Aam Aadmi Party", avatar: "/avatars/arvind-kejriwal.svg", accent: "#559dc2", tier: "Party leader" },
+  { id: "narendra-modi", name: "Narendra Modi", office: "Prime Minister", party: "BJP", partyName: "Bharatiya Janata Party", avatar: "/avatars/narendra-modi.png", accent: "#e18a37", tier: "National leader" },
+  { id: "rahul-gandhi", name: "Rahul Gandhi", office: "Member of Parliament", party: "INC", partyName: "Indian National Congress", avatar: "/avatars/rahul-gandhi.png", accent: "#4d73b4", tier: "National leader" },
+  { id: "mallikarjun-kharge", name: "Mallikarjun Kharge", office: "Party President", party: "INC", partyName: "Indian National Congress", avatar: "/avatars/mallikarjun-kharge.png", accent: "#5e70a4", tier: "Party leader" },
+  { id: "mamata-banerjee", name: "Mamata Banerjee", office: "State leader", party: "TMC", partyName: "All India Trinamool Congress", avatar: "/avatars/mamata-banerjee.png", accent: "#7a9ac8", tier: "Regional leader" },
+  { id: "arvind-kejriwal", name: "Arvind Kejriwal", office: "Party leader", party: "AAP", partyName: "Aam Aadmi Party", avatar: "/avatars/arvind-kejriwal.png", accent: "#559dc2", tier: "Party leader" },
 ];
 
 const PARTIES = [
