@@ -190,7 +190,7 @@ export const ALL_MEMBERS: LeaderMember[] = [
     party: "BJP",
     partyName: "Bharatiya Janata Party",
     hierarchyRole: "National Party President & Cabinet Minister",
-    avatar: "/avatars/narendra-modi.png",
+    avatar: "/avatars/jp-nadda.png",
     accent: "#e18a37",
     tier: "Tier 1: Supreme / National Leadership",
     background: "National President of Bharatiya Janata Party (2020–present). Union Minister of Health and Family Welfare & Chemicals and Fertilizers. Rajya Sabha MP and former Himachal Pradesh Cabinet Minister.",
@@ -657,7 +657,7 @@ export const ALL_MEMBERS: LeaderMember[] = [
     party: "SP",
     partyName: "Samajwadi Party",
     hierarchyRole: "National Party President & MP",
-    avatar: "/avatars/rahul-gandhi.png",
+    avatar: "/avatars/akhilesh-yadav.png",
     accent: "#c05e70",
     tier: "Tier 1: Supreme / National Leadership",
     background: "National President of Samajwadi Party (2017–present). Member of Parliament from Kannauj (2024). 38th Chief Minister of Uttar Pradesh (2012–2017). Former MP from Azamgarh and Mainpuri.",
@@ -827,8 +827,15 @@ function LeaderCard({ member, onOpen, compact = false }: { member: LeaderMember;
   );
 }
 
-function HierarchyExplorer({ onSelectMember, setScreen }: { onSelectMember: (member: LeaderMember) => void; setScreen: (s: Screen) => void }) {
-  const [selectedParty, setSelectedParty] = useState<string>("ALL");
+function HierarchyExplorer({
+  selectedParty,
+  setSelectedParty,
+  onSelectMember
+}: {
+  selectedParty: string;
+  setSelectedParty: (p: string) => void;
+  onSelectMember: (member: LeaderMember) => void;
+}) {
   const [selectedTier, setSelectedTier] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -987,7 +994,7 @@ function ProfileDetail({ member, back, onSelectMember }: { member: LeaderMember;
             <button className="ink-button" onClick={downloadShare}>
               <Download className="size-4" /> Download 2160×3840 Civic Infographic
             </button>
-            <button className="outline-button" onClick={back}>
+            <button className="outline-button" onClick={() => back(member.party)}>
               Explore {member.party} Hierarchy <ArrowRight className="size-4" />
             </button>
           </div>
@@ -1155,7 +1162,7 @@ function ProfileDetail({ member, back, onSelectMember }: { member: LeaderMember;
   );
 }
 
-function PartyDirectory({ onSelectMember }: { onSelectMember: (m: LeaderMember) => void }) {
+function PartyDirectory({ onSelectMember, onExploreParty }: { onSelectMember: (m: LeaderMember) => void; onExploreParty: (partyCode: string) => void }) {
   return (
     <section className="shell page">
       <p className="eyebrow"><FolderTree className="size-3" /> Party Organizational Folders</p>
@@ -1178,7 +1185,12 @@ function PartyDirectory({ onSelectMember }: { onSelectMember: (m: LeaderMember) 
                   <h2>{party.name}</h2>
                   <p>{party.note}</p>
                 </div>
-                <span className="method-tag">{members.length} Verified Profiles</span>
+                <div className="flex items-center gap-2 ml-auto">
+                  <span className="method-tag">{members.length} Verified Profiles</span>
+                  <button className="ink-button text-xs py-1.5 px-3" onClick={() => onExploreParty(party.code)}>
+                    Explore {party.code} Hierarchy <ArrowRight className="size-3 inline" />
+                  </button>
+                </div>
               </div>
               <div className="folder-content">
                 {members.map((m) => (
@@ -1397,6 +1409,7 @@ function Explainer() {
 
 function AppContent() {
   const [screen, setScreen] = useState<Screen>("hierarchy");
+  const [selectedPartyFilter, setSelectedPartyFilter] = useState<string>("ALL");
   const [selectedMember, setSelectedMember] = useState<LeaderMember>(ALL_MEMBERS[0]);
   const [dark, setDark] = useState(false);
 
@@ -1419,13 +1432,19 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const openPartyHierarchy = (partyCode: string) => {
+    setSelectedPartyFilter(partyCode);
+    setScreen("hierarchy");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const body =
     screen === "hierarchy" ? (
-      <HierarchyExplorer onSelectMember={openMember} setScreen={setScreen} />
+      <HierarchyExplorer selectedParty={selectedPartyFilter} setSelectedParty={setSelectedPartyFilter} onSelectMember={openMember} />
     ) : screen === "party" ? (
-      <PartyDirectory onSelectMember={openMember} />
+      <PartyDirectory onSelectMember={openMember} onExploreParty={openPartyHierarchy} />
     ) : screen === "profile" ? (
-      <ProfileDetail member={selectedMember} back={() => setScreen("hierarchy")} onSelectMember={openMember} />
+      <ProfileDetail member={selectedMember} back={(partyCode?: string) => openPartyHierarchy(partyCode || "ALL")} onSelectMember={openMember} />
     ) : screen === "compare" ? (
       <Compare />
     ) : screen === "news" ? (
