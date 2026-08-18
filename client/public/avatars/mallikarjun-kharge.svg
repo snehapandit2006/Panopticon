@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-kharge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f1f5f9" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="jacket-kharge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="96" fill="url(#bg-kharge)" stroke="#5e70a4" stroke-width="4" />
+  
+  <!-- Shoulders / Jacket -->
+  <path d="M 25 185 Q 100 135 175 185 L 180 200 L 20 200 Z" fill="url(#jacket-kharge)" />
+  <path d="M 75 145 L 100 185 L 125 145 Z" fill="#ffffff" />
+
+  <!-- Neck -->
+  <rect x="85" y="115" width="30" height="30" fill="#f5d0a9" rx="4" />
+
+  <!-- Head (Rounder face) -->
+  <ellipse cx="100" cy="85" rx="42" ry="46" fill="#f7d4b2" />
+
+  <!-- Ears -->
+  <circle cx="56" cy="85" r="9" fill="#f5d0a9" />
+  <circle cx="144" cy="85" r="9" fill="#f5d0a9" />
+
+  <!-- White Hair (Elderly politician) -->
+  <path d="M 58 75 C 54 48 72 40 100 40 C 128 40 146 48 142 75 C 136 50 124 45 100 45 C 76 45 64 50 58 75 Z" fill="#ffffff" />
+  <path d="M 55 70 Q 50 85 56 98 Q 62 86 60 70 Z" fill="#f1f5f9" />
+  <path d="M 145 70 Q 150 85 144 98 Q 138 86 140 70 Z" fill="#f1f5f9" />
+
+  <!-- Eyebrows (White) -->
+  <path d="M 72 68 Q 82 64 90 68" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round" />
+  <path d="M 110 68 Q 118 64 128 68" fill="none" stroke="#cbd5e1" stroke-width="3.5" stroke-linecap="round" />
+  
+  <!-- Eyes -->
+  <circle cx="81" cy="76" r="3.5" fill="#1e293b" />
+  <circle cx="119" cy="76" r="3.5" fill="#1e293b" />
+
+  <!-- Glasses -->
+  <rect x="70" y="68" width="24" height="16" rx="4" fill="none" stroke="#475569" stroke-width="3" />
+  <rect x="106" y="68" width="24" height="16" rx="4" fill="none" stroke="#475569" stroke-width="3" />
+  <line x1="94" y1="74" x2="106" y2="74" stroke="#475569" stroke-width="3" />
+  <line x1="56" y1="74" x2="70" y2="74" stroke="#475569" stroke-width="2.5" />
+  <line x1="130" y1="74" x2="144" y2="74" stroke="#475569" stroke-width="2.5" />
+
+  <!-- Nose -->
+  <path d="M 98 75 L 95 90 L 103 90" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- White Mustache -->
+  <path d="M 76 98 Q 100 92 124 98 Q 112 108 100 105 Q 88 108 76 98 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+
+  <!-- Mouth -->
+  <path d="M 90 112 Q 100 118 110 112" fill="none" stroke="#64748b" stroke-width="2" />
+</svg>

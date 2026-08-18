@@ -1,0 +1,23 @@
+@media (max-width: 899px) {
+  .topbar-inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 0.6rem 0;
+  }
+
+  .topbar nav {
+    display: flex;
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.1rem;
+  }
+
+  .topbar nav button {
+    white-space: nowrap;
+  }
+
+  .topbar nav::-webkit-scrollbar {
+    display: none;
+  }
+}

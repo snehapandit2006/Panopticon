@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-rahul" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#dbeafe" />
+    </linearGradient>
+    <linearGradient id="shirt-rahul" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="96" fill="url(#bg-rahul)" stroke="#4d73b4" stroke-width="4" />
+  
+  <!-- Shoulders / Kurta -->
+  <path d="M 25 185 Q 100 135 175 185 L 180 200 L 20 200 Z" fill="url(#shirt-rahul)" stroke="#cbd5e1" stroke-width="1.5" />
+  <path d="M 85 140 L 100 175 L 115 140 Z" fill="#e2e8f0" />
+
+  <!-- Neck -->
+  <rect x="85" y="115" width="30" height="30" fill="#f5cba7" rx="4" />
+
+  <!-- Head -->
+  <ellipse cx="100" cy="82" rx="38" ry="45" fill="#f8d7da" />
+
+  <!-- Ears -->
+  <circle cx="60" cy="82" r="8" fill="#f5cba7" />
+  <circle cx="140" cy="82" r="8" fill="#f5cba7" />
+
+  <!-- Dark Hair (Curly / Wavy top) -->
+  <path d="M 58 75 C 52 40 70 32 100 32 C 130 32 148 40 142 75 C 135 44 125 37 100 37 C 75 37 65 44 58 75 Z" fill="#1e293b" />
+  <path d="M 64 50 Q 80 35 100 38 Q 120 35 136 50 Q 120 40 100 42 Q 80 40 64 50 Z" fill="#334155" />
+
+  <!-- Light Stubble Beard & Mustache -->
+  <path d="M 64 80 C 64 125 136 125 136 80 C 136 112 126 128 100 128 C 74 128 64 112 64 80 Z" fill="#64748b" opacity="0.35" />
+
+  <!-- Eyebrows -->
+  <path d="M 72 65 Q 83 60 92 65" fill="none" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" />
+  <path d="M 108 65 Q 117 60 128 65" fill="none" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" />
+  
+  <!-- Eyes -->
+  <circle cx="82" cy="74" r="4" fill="#0f172a" />
+  <circle cx="118" cy="74" r="4" fill="#0f172a" />
+  <circle cx="83.5" cy="72.5" r="1.2" fill="#ffffff" />
+  <circle cx="119.5" cy="72.5" r="1.2" fill="#ffffff" />
+
+  <!-- Nose -->
+  <path d="M 98 72 L 95 88 L 103 88" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Smile / Dimple -->
+  <path d="M 86 102 Q 100 114 114 102" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" />
+  <path d="M 82 100 Q 80 104 84 106" fill="none" stroke="#fca5a5" stroke-width="2" />
+  <path d="M 118 100 Q 120 104 116 106" fill="none" stroke="#fca5a5" stroke-width="2" />
+</svg>
