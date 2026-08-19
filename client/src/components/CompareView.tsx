@@ -15,14 +15,14 @@ export function CompareView() {
       {/* Page Heading */}
       <div className="border border-[var(--glass-border)] p-6 rounded-3xl bg-[var(--glass)] backdrop-blur-md shadow-xl">
         <p className="eyebrow"><Scale className="size-3" /> Source-Linked Comparison Engine</p>
-        <h1 className="text-4xl font-bold font-serif mt-2">Verified Leader & Party Matrix</h1>
+        <h1 className="text-4xl font-bold font-serif mt-2 text-slate-900 dark:text-white">Verified Leader & Party Matrix</h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">
           Side-by-side comparative analysis of political leaders and recognized parties based on sworn ECI candidate affidavits, financial disclosures, criminal declarations, and legislative records.
         </p>
       </div>
 
       {/* Leader vs Leader Selector Toolbar */}
-      <div className="p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-xl">
+      <div className="p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/90 shadow-xl">
         <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">
           <ArrowRightLeft className="size-4 text-amber-500" />
           <span>Select Any Two Leaders for Side-by-Side Verification</span>
@@ -35,10 +35,10 @@ export function CompareView() {
             <select
               value={leaderAId}
               onChange={(e) => setLeaderAId(e.target.value)}
-              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-bold text-sm"
+              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm focus:ring-2 focus:ring-amber-500"
             >
               {ALL_MEMBERS.map((m) => (
-                <option key={m.id} value={m.id} disabled={m.id === leaderBId}>
+                <option key={m.id} value={m.id} disabled={m.id === leaderBId} className="bg-white text-slate-900 dark:bg-slate-800 dark:text-white">
                   {m.name} ({m.party} — {m.office})
                 </option>
               ))}
@@ -51,10 +51,10 @@ export function CompareView() {
             <select
               value={leaderBId}
               onChange={(e) => setLeaderBId(e.target.value)}
-              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-bold text-sm"
+              className="w-full p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm focus:ring-2 focus:ring-amber-500"
             >
               {ALL_MEMBERS.map((m) => (
-                <option key={m.id} value={m.id} disabled={m.id === leaderAId}>
+                <option key={m.id} value={m.id} disabled={m.id === leaderAId} className="bg-white text-slate-900 dark:bg-slate-800 dark:text-white">
                   {m.name} ({m.party} — {m.office})
                 </option>
               ))}
@@ -64,7 +64,7 @@ export function CompareView() {
 
         {/* Side-by-Side Comparison Display Grid */}
         <div className="grid gap-6 md:grid-cols-2 mt-8">
-          {[leaderA, leaderB].map((leader, index) => (
+          {[leaderA, leaderB].map((leader) => (
             <div
               key={leader.id}
               className="card-3d p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 shadow-xl flex flex-col justify-between"
@@ -73,14 +73,14 @@ export function CompareView() {
               <div>
                 {/* Hero Header */}
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="avatar-stage size-20 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center p-1">
-                    <img src={leader.avatar} alt={leader.name} className="size-full object-contain" />
+                  <div className="avatar-stage size-20 rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center p-1">
+                    <img src={leader.avatar} alt={leader.name} className="size-full object-contain drop-shadow" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full text-white" style={{ background: leader.accent }}>
+                    <span className="text-[10px] uppercase font-black tracking-wider px-2.5 py-0.5 rounded-full text-white" style={{ background: leader.accent }}>
                       {leader.party}
                     </span>
-                    <h3 className="text-2xl font-extrabold font-serif mt-1">{leader.name}</h3>
+                    <h3 className="text-2xl font-extrabold font-serif mt-1 text-slate-900 dark:text-white">{leader.name}</h3>
                     <p className="text-xs font-semibold text-slate-500">{leader.office}</p>
                   </div>
                 </div>
@@ -102,11 +102,11 @@ export function CompareView() {
                     <span>Financial Disclosures (2024 Sworn Affidavit)</span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span>Total Declared Assets:</span>
+                    <span className="text-slate-600 dark:text-slate-400">Total Declared Assets:</span>
                     <span className="font-extrabold text-sm text-emerald-600 dark:text-emerald-400">{leader.financials.assets}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs mt-1">
-                    <span>Liabilities:</span>
+                    <span className="text-slate-600 dark:text-slate-400">Liabilities:</span>
                     <span className="font-bold text-rose-500">{leader.financials.liabilities}</span>
                   </div>
                 </div>
@@ -118,14 +118,14 @@ export function CompareView() {
                     <span>Sworn Criminal Cases</span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span>Declared Cases:</span>
+                    <span className="text-slate-600 dark:text-slate-400">Declared Cases:</span>
                     <span className={`font-extrabold text-sm ${leader.criminalHistory.totalCases > 0 ? "text-rose-600" : "text-emerald-600"}`}>
                       {leader.criminalHistory.totalCases} Case(s)
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-xs mt-1">
-                    <span>Convictions:</span>
-                    <span className="font-bold">{leader.criminalHistory.convictions}</span>
+                    <span className="text-slate-600 dark:text-slate-400">Convictions:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">{leader.criminalHistory.convictions}</span>
                   </div>
                 </div>
 
@@ -135,7 +135,7 @@ export function CompareView() {
                     <Award className="size-4 text-emerald-500" />
                     <span>Major Legislative/Policy Focus</span>
                   </div>
-                  <p className="text-xs font-semibold leading-relaxed">
+                  <p className="text-xs font-semibold leading-relaxed text-slate-800 dark:text-slate-200">
                     {leader.developmentContributions[0]?.title}: {leader.developmentContributions[0]?.description}
                   </p>
                 </div>
@@ -143,7 +143,7 @@ export function CompareView() {
 
               {/* Source Verification Link */}
               <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1">
+                <span className="text-[10px] font-bold text-slate-500 flex items-center gap-1">
                   <ShieldCheck className="size-3 text-emerald-500" /> ECI Affidavit Verified
                 </span>
                 <a
@@ -160,13 +160,13 @@ export function CompareView() {
         </div>
       </div>
 
-      {/* Panopticon Data Integrity & Verification Methodology */}
-      <div className="p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 shadow-lg">
-        <h2 className="text-3xl font-bold font-serif mb-4">Verification Methodology & Standard</h2>
+      {/* Data Verification Methodology */}
+      <div className="p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 shadow-lg">
+        <h2 className="text-3xl font-bold font-serif mb-4 text-slate-900 dark:text-white">Verification Methodology & Standard</h2>
         <div className="grid gap-6 md:grid-cols-3">
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
             <CheckCircle2 className="size-6 text-emerald-500 mb-2" />
-            <h4 className="font-bold text-base mb-1">1. Sworn ECI Affidavits</h4>
+            <h4 className="font-bold text-base mb-1 text-slate-900 dark:text-white">1. Sworn ECI Affidavits</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Every educational degree, financial asset declaration, and criminal case tally is pulled directly from Form 26 sworn affidavits filed with the Election Commission of India.
             </p>
@@ -174,7 +174,7 @@ export function CompareView() {
 
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
             <CheckCircle2 className="size-6 text-emerald-500 mb-2" />
-            <h4 className="font-bold text-base mb-1">2. ADR / MyNeta Audit</h4>
+            <h4 className="font-bold text-base mb-1 text-slate-900 dark:text-white">2. ADR / MyNeta Audit</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Financial valuation summaries and criminal case IPC/BNS section breakdowns are audited against Association for Democratic Reforms (ADR) candidate databases.
             </p>
@@ -182,7 +182,7 @@ export function CompareView() {
 
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
             <CheckCircle2 className="size-6 text-emerald-500 mb-2" />
-            <h4 className="font-bold text-base mb-1">3. Non-Biased Standard</h4>
+            <h4 className="font-bold text-base mb-1 text-slate-900 dark:text-white">3. Non-Biased Standard</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Panopticon does not publish opinion polls or subjective editorials. All text is non-partisan and anchored strictly to primary public legal records.
             </p>

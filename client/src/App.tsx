@@ -32,7 +32,8 @@ import {
   Sun,
   UsersRound,
   MapPin,
-  FileText
+  FileText,
+  X
 } from "lucide-react";
 import { useEffect, useState, type CSSProperties } from "react";
 import { ALL_MEMBERS, LeaderMember, HierarchyTier, VerificationLink } from "./data/membersData";
@@ -125,8 +126,6 @@ function LeaderCard({ member, onOpen, compact = false }: { member: LeaderMember;
       </div>
 
       <div className="avatar-stage">
-        <span className="draft-circle" />
-        <span className="draft-square" />
         <img src={member.avatar} alt={`3D Caricature of ${member.name}`} />
       </div>
 
@@ -140,7 +139,7 @@ function LeaderCard({ member, onOpen, compact = false }: { member: LeaderMember;
 
       {!compact && (
         <div className="leader-proof">
-          <BadgeCheck className="size-3 text-emerald-600 dark:text-emerald-400" />
+          <BadgeCheck className="size-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <span>Verified ECI Record ({member.education.qualification})</span>
         </div>
       )}
@@ -159,6 +158,8 @@ function HierarchyExplorer({
 }) {
   const [selectedTier, setSelectedTier] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const activePartyInfo = NATIONAL_PARTIES.find((p) => p.code === selectedParty);
 
   const filteredMembers = ALL_MEMBERS.filter((m) => {
     const matchesParty = selectedParty === "ALL" || m.party === selectedParty;
@@ -181,10 +182,39 @@ function HierarchyExplorer({
   return (
     <section className="shell page">
       <p className="eyebrow"><Network className="size-3" /> Political Leadership Matrix · 2026</p>
-      <h1>Political Power Hierarchy.<br /><em>3D Interactive Profiles.</em></h1>
+      <h1 className="text-4xl font-extrabold font-serif text-slate-900 dark:text-white mt-1">
+        {selectedParty === "ALL" ? "Political Power Hierarchy" : `${activePartyInfo?.name} Hierarchy`}
+      </h1>
       <p className="page-copy">
-        Explore national political leadership hierarchies. Hover over any leader caricature to experience 3D popping artwork with full ECI affidavit verification.
+        Explore recognized political leadership across India. Hover over any leader card to experience 3D popping artwork with full ECI affidavit verification.
       </p>
+
+      {/* Prominent Active Party Filter Banner */}
+      {selectedParty !== "ALL" && (
+        <div className="my-6 p-4 rounded-2xl bg-amber-500/10 border-2 border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md">
+          <div className="flex items-center gap-3">
+            <div className="size-12 rounded-xl bg-white p-1.5 shadow flex items-center justify-center border border-amber-300">
+              <img src={activePartyInfo?.icon} alt={activePartyInfo?.name} className="size-9 object-contain" />
+            </div>
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                Filtered Party Hierarchy
+              </span>
+              <h2 className="text-xl font-extrabold font-serif text-slate-900 dark:text-white">
+                {activePartyInfo?.name} ({selectedParty})
+              </h2>
+              <p className="text-xs text-slate-600 dark:text-slate-400">{activePartyInfo?.note}</p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setSelectedParty("ALL")}
+            className="py-2 px-4 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-xs font-bold shadow hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 shrink-0"
+          >
+            <X className="size-3.5" /> Clear Filter (View All Parties)
+          </button>
+        </div>
+      )}
 
       {/* Filter Toolbar */}
       <div className="filter-toolbar card-3d">
@@ -239,11 +269,11 @@ function HierarchyExplorer({
       })}
 
       {filteredMembers.length === 0 && (
-        <div className="glass-sheet empty-state">
-          <ShieldAlert className="size-8" />
-          <h3>No political profiles match your filter criteria</h3>
-          <p>Try resetting search query or selecting "All Recognized Parties".</p>
-          <button className="ink-button" onClick={() => { setSelectedParty("ALL"); setSelectedTier("ALL"); setSearchQuery(""); }}>
+        <div className="glass-sheet empty-state my-8 p-8 rounded-3xl text-center border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80">
+          <ShieldAlert className="size-8 mx-auto text-amber-500 mb-2" />
+          <h3 className="text-lg font-bold">No political profiles match your filter criteria</h3>
+          <p className="text-xs text-slate-500 mt-1">Try resetting search query or selecting "All Recognized Parties".</p>
+          <button className="mt-4 px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs" onClick={() => { setSelectedParty("ALL"); setSelectedTier("ALL"); setSearchQuery(""); }}>
             Reset Filters
           </button>
         </div>
@@ -303,7 +333,7 @@ function ProfileDetail({
   return (
     <section className="shell page">
       <button className="back-link" onClick={() => back(member.party)}>
-        <ArrowLeft className="size-4" /> Back to Leadership Hierarchy
+        <ArrowLeft className="size-4" /> Back to {member.party} Hierarchy Explorer
       </button>
 
       {/* Special Transition Alert */}
@@ -326,14 +356,14 @@ function ProfileDetail({
           <p className="eyebrow">
             <i style={{ background: member.accent }} /> {member.party} ({member.partyName}) · {member.tier}
           </p>
-          <h1>{member.name}</h1>
-          <h3>{member.office} — <i>{member.hierarchyRole}</i></h3>
-          <p className="profile-copy">{member.background}</p>
-          <div className="profile-actions">
-            <button className="ink-button" onClick={downloadShare}>
+          <h1 className="text-4xl font-extrabold font-serif text-slate-900 dark:text-white mt-1">{member.name}</h1>
+          <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mt-1">{member.office} — <i>{member.hierarchyRole}</i></h3>
+          <p className="profile-copy text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">{member.background}</p>
+          <div className="profile-actions flex flex-wrap gap-3 mt-6">
+            <button className="ink-button text-xs py-2 px-4 rounded-xl font-bold bg-slate-900 text-white flex items-center gap-2" onClick={downloadShare}>
               <Download className="size-4" /> Download 2160×3840 Civic Infographic
             </button>
-            <button className="outline-button" onClick={() => back(member.party)}>
+            <button className="outline-button text-xs py-2 px-4 rounded-xl font-bold border border-slate-300 dark:border-slate-700 flex items-center gap-2" onClick={() => back(member.party)}>
               Explore {member.party} Hierarchy <ArrowRight className="size-4" />
             </button>
           </div>
@@ -341,26 +371,26 @@ function ProfileDetail({
       </div>
 
       {/* Tabs */}
-      <div className="profile-tabs">
-        <button className={activeTab === "all" ? "tab-active" : ""} onClick={() => setActiveTab("all")}>All Verified Records</button>
-        <button className={activeTab === "education" ? "tab-active" : ""} onClick={() => setActiveTab("education")}>Education</button>
-        <button className={activeTab === "financials" ? "tab-active" : ""} onClick={() => setActiveTab("financials")}>Financial Assets</button>
-        <button className={activeTab === "criminal" ? "tab-active" : ""} onClick={() => setActiveTab("criminal")}>Criminal History</button>
-        <button className={activeTab === "contributions" ? "tab-active" : ""} onClick={() => setActiveTab("contributions")}>Development Contributions</button>
+      <div className="profile-tabs flex flex-wrap gap-2 my-6">
+        <button className={`px-4 py-2 rounded-xl text-xs font-bold ${activeTab === "all" ? "bg-slate-900 text-white" : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`} onClick={() => setActiveTab("all")}>All Verified Records</button>
+        <button className={`px-4 py-2 rounded-xl text-xs font-bold ${activeTab === "education" ? "bg-slate-900 text-white" : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`} onClick={() => setActiveTab("education")}>Education</button>
+        <button className={`px-4 py-2 rounded-xl text-xs font-bold ${activeTab === "financials" ? "bg-slate-900 text-white" : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`} onClick={() => setActiveTab("financials")}>Financial Assets</button>
+        <button className={`px-4 py-2 rounded-xl text-xs font-bold ${activeTab === "criminal" ? "bg-slate-900 text-white" : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`} onClick={() => setActiveTab("criminal")}>Criminal History</button>
+        <button className={`px-4 py-2 rounded-xl text-xs font-bold ${activeTab === "contributions" ? "bg-slate-900 text-white" : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`} onClick={() => setActiveTab("contributions")}>Development Contributions</button>
       </div>
 
-      <div className="profile-grid">
+      <div className="profile-grid grid gap-6 md:grid-cols-3">
         {(activeTab === "all" || activeTab === "education") && (
-          <div className="profile-card card-3d">
-            <div className="card-head">
-              <GraduationCap className="size-5" />
-              <h3>Verified Education Qualification</h3>
+          <div className="profile-card card-3d p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90">
+            <div className="card-head flex items-center gap-2 font-bold text-sm text-slate-900 dark:text-white mb-2">
+              <GraduationCap className="size-5 text-blue-500" />
+              <h3>Education Qualification</h3>
             </div>
-            <div className="card-body">
-              <span className="method-tag">{member.education.qualification}</span>
-              <h4>{member.education.institution} ({member.education.year})</h4>
-              <p>{member.education.details}</p>
-              <a href={member.education.link.url} target="_blank" rel="noreferrer" className="source-link">
+            <div className="card-body text-xs">
+              <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase">{member.education.qualification}</span>
+              <h4 className="font-bold text-sm mt-2">{member.education.institution} ({member.education.year})</h4>
+              <p className="text-slate-600 dark:text-slate-400 mt-1">{member.education.details}</p>
+              <a href={member.education.link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-blue-600 font-bold mt-3 hover:underline">
                 <ExternalLink className="size-3" /> {member.education.link.label}
               </a>
             </div>
@@ -368,24 +398,22 @@ function ProfileDetail({
         )}
 
         {(activeTab === "all" || activeTab === "financials") && (
-          <div className="profile-card card-3d">
-            <div className="card-head">
-              <Coins className="size-5" />
-              <h3>Financial Asset Disclosures</h3>
+          <div className="profile-card card-3d p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90">
+            <div className="card-head flex items-center gap-2 font-bold text-sm text-slate-900 dark:text-white mb-2">
+              <Coins className="size-5 text-amber-500" />
+              <h3>Financial Disclosures</h3>
             </div>
-            <div className="card-body">
-              <div className="stat-row">
-                <div>
-                  <span className="stat-label">Total Assets:</span>
-                  <p className="stat-value">{member.financials.assets}</p>
-                </div>
-                <div>
-                  <span className="stat-label">Liabilities:</span>
-                  <p className="stat-value">{member.financials.liabilities}</p>
-                </div>
+            <div className="card-body text-xs">
+              <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1">
+                <span>Total Assets:</span>
+                <span className="font-extrabold text-emerald-600">{member.financials.assets}</span>
               </div>
-              <p className="mt-2 text-xs">{member.financials.details}</p>
-              <a href={member.financials.link.url} target="_blank" rel="noreferrer" className="source-link">
+              <div className="flex justify-between mt-1">
+                <span>Liabilities:</span>
+                <span className="font-bold text-rose-500">{member.financials.liabilities}</span>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400 mt-2">{member.financials.details}</p>
+              <a href={member.financials.link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-blue-600 font-bold mt-3 hover:underline">
                 <ExternalLink className="size-3" /> {member.financials.link.label}
               </a>
             </div>
@@ -393,24 +421,22 @@ function ProfileDetail({
         )}
 
         {(activeTab === "all" || activeTab === "criminal") && (
-          <div className="profile-card card-3d">
-            <div className="card-head">
-              <Gavel className="size-5" />
-              <h3>Sworn Criminal Case Declarations</h3>
+          <div className="profile-card card-3d p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90">
+            <div className="card-head flex items-center gap-2 font-bold text-sm text-slate-900 dark:text-white mb-2">
+              <Gavel className="size-5 text-rose-500" />
+              <h3>Criminal Case Declarations</h3>
             </div>
-            <div className="card-body">
-              <div className="stat-row">
-                <div>
-                  <span className="stat-label">Declared Cases:</span>
-                  <p className="stat-value">{member.criminalHistory.totalCases}</p>
-                </div>
-                <div>
-                  <span className="stat-label">Convictions:</span>
-                  <p className="stat-value">{member.criminalHistory.convictions}</p>
-                </div>
+            <div className="card-body text-xs">
+              <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1">
+                <span>Declared Cases:</span>
+                <span className="font-extrabold text-slate-900 dark:text-white">{member.criminalHistory.totalCases}</span>
               </div>
-              <p className="mt-2 text-xs">{member.criminalHistory.summary}</p>
-              <a href={member.criminalHistory.link.url} target="_blank" rel="noreferrer" className="source-link">
+              <div className="flex justify-between mt-1">
+                <span>Convictions:</span>
+                <span className="font-bold">{member.criminalHistory.convictions}</span>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400 mt-2">{member.criminalHistory.summary}</p>
+              <a href={member.criminalHistory.link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-blue-600 font-bold mt-3 hover:underline">
                 <ExternalLink className="size-3" /> {member.criminalHistory.link.label}
               </a>
             </div>
@@ -418,28 +444,10 @@ function ProfileDetail({
         )}
       </div>
 
-      {/* Contributions */}
-      {(activeTab === "all" || activeTab === "contributions") && (
-        <div className="my-8">
-          <h2 className="font-serif font-bold text-2xl mb-4">Development Contributions & Policy Impact</h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            {member.developmentContributions.map((c, i) => (
-              <div key={i} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70">
-                <h4 className="font-bold text-base">{c.title}</h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{c.description}</p>
-                <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
-                  Impact: {c.impact}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Teammates */}
       {samePartyMembers.length > 0 && (
         <div className="my-10">
-          <h3 className="font-serif font-bold text-xl mb-4">Other Verified Leaders in {member.partyName}</h3>
+          <h3 className="font-serif font-bold text-xl mb-4 text-slate-900 dark:text-white">Other Verified Leaders in {member.partyName}</h3>
           <div className="leader-grid">
             {samePartyMembers.map((m) => (
               <LeaderCard key={m.id} member={m} compact onOpen={() => onSelectMember(m)} />
@@ -461,9 +469,9 @@ function PartyDirectory({
   return (
     <section className="shell page">
       <p className="eyebrow"><FolderTree className="size-3" /> Party Organizational Folders & Regional Spectrum</p>
-      <h1>Recognized Parties Directory.<br /><em>National & Regional Spectrum.</em></h1>
+      <h1 className="text-4xl font-extrabold font-serif text-slate-900 dark:text-white">Recognized Parties Directory</h1>
       <p className="page-copy">
-        Browse national and major regional political party structures across India. Every party folder breaks down into Tier 1 Supreme Leadership, Union/State Ministers, and Members of Parliament.
+        Browse national and major regional political party structures across India. Every party folder breaks down into Tier 1 Supreme Leadership, Cabinet Ministers, and Members of Parliament.
       </p>
 
       {/* National Folders */}
@@ -471,20 +479,25 @@ function PartyDirectory({
         {NATIONAL_PARTIES.filter((p) => p.code !== "ALL").map((party) => {
           const members = ALL_MEMBERS.filter((m) => m.party === party.code);
           return (
-            <article key={party.code} className="party-folder card-3d p-6 rounded-3xl mb-6">
-              <div className="folder-head flex items-center gap-4">
-                <div className="size-14 rounded-2xl bg-white p-2 border border-slate-200 shadow-md flex items-center justify-center">
+            <article key={party.code} className="party-folder card-3d p-6 rounded-3xl mb-6 bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800">
+              <div className="folder-head flex flex-col sm:flex-row sm:items-center gap-4">
+                <div className="size-14 rounded-2xl bg-white p-2 border border-slate-200 shadow-md flex items-center justify-center shrink-0">
                   <img src={party.icon} alt={party.name} className="size-10 object-contain" />
                 </div>
                 <div>
                   <p className="eyebrow" style={{ color: party.accent }}>{party.code}</p>
-                  <h2 className="text-2xl font-bold font-serif">{party.name}</h2>
+                  <h2 className="text-2xl font-bold font-serif text-slate-900 dark:text-white">{party.name}</h2>
                   <p className="text-xs text-slate-500">{party.note}</p>
                 </div>
-                <div className="flex items-center gap-2 ml-auto">
-                  <span className="method-tag">{members.length} Verified Profiles</span>
-                  <button className="ink-button text-xs py-1.5 px-3" onClick={() => onExploreParty(party.code)}>
-                    Explore {party.code} Hierarchy <ArrowRight className="size-3 inline" />
+                <div className="flex items-center gap-2 sm:ml-auto">
+                  <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300">
+                    {members.length} Verified Profiles
+                  </span>
+                  <button
+                    className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold shadow hover:bg-slate-800 transition-colors flex items-center gap-1.5"
+                    onClick={() => onExploreParty(party.code)}
+                  >
+                    Explore {party.code} Hierarchy <ArrowRight className="size-3.5" />
                   </button>
                 </div>
               </div>
@@ -499,10 +512,10 @@ function PartyDirectory({
       </div>
 
       {/* Regional Spectrum */}
-      <div className="my-12 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 shadow-lg">
+      <div className="my-12 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-lg">
         <div className="mb-6">
           <p className="eyebrow"><Building2 className="size-3" /> Major Regional Parties & Coalition Forces</p>
-          <h2 className="text-3xl font-bold font-serif mt-2">Major Regional Parties Spectrum</h2>
+          <h2 className="text-3xl font-bold font-serif mt-2 text-slate-900 dark:text-white">Major Regional Parties Spectrum</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Crucial state-level and regional political forces shaping national coalition dynamics in India.
           </p>
@@ -598,8 +611,8 @@ function Explainer() {
     <section className="shell explainer-page">
       <aside>
         <p className="eyebrow"><Sparkles className="size-3" /> Civic Assistant</p>
-        <h1>Ask the Public Record.<br /><em>Source-First Verification.</em></h1>
-        <p>Answers are generated from primary public documents and verified ECI affidavits.</p>
+        <h1 className="text-4xl font-extrabold font-serif text-slate-900 dark:text-white">Ask the Public Record</h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">Answers are generated from primary public documents and verified ECI affidavits.</p>
       </aside>
       <AIChatBox
         messages={messages}
@@ -686,8 +699,8 @@ function AppContent() {
       <main>{body}</main>
       <footer>
         <div className="shell">
-          <b>Panopticon Civic Intelligence Platform</b>
-          <p>
+          <b className="text-slate-900 dark:text-white">Panopticon Civic Intelligence Platform</b>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
             All information is strictly factual, non-biased, and directly sourced from sworn Election Commission of India (ECI) affidavits, MyNeta (ADR), and Parliamentary records.
           </p>
         </div>
