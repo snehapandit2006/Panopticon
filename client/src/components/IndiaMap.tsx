@@ -8,33 +8,33 @@ export function IndiaMap({ onSelectParty }: { onSelectParty: (partyCode: string)
 
   const active = hoveredState || selectedState;
 
-  // Geographic coordinates (0-100% overlay) calibrated to the India map outline image
+  // Geographic coordinates (0-100% overlay) calibrated to Screenshot 2026-08-19 183355.png map
   const stateCoordinates: Record<string, { x: number; y: number }> = {
-    JK: { x: 34, y: 12 },
-    HP: { x: 38, y: 20 },
-    PB: { x: 32, y: 23 },
-    HR: { x: 35, y: 30 },
-    DL: { x: 38, y: 32 },
-    UK: { x: 44, y: 25 },
-    RJ: { x: 25, y: 38 },
-    UP: { x: 48, y: 38 },
-    BR: { x: 62, y: 41 },
-    SK: { x: 72, y: 35 },
-    AS: { x: 84, y: 38 },
-    ML: { x: 80, y: 44 },
-    GJ: { x: 16, y: 50 },
-    MP: { x: 40, y: 52 },
-    CG: { x: 53, y: 56 },
-    JH: { x: 63, y: 49 },
-    WB: { x: 70, y: 51 },
-    OD: { x: 60, y: 62 },
-    MH: { x: 32, y: 64 },
-    GA: { x: 26, y: 76 },
-    TG: { x: 46, y: 68 },
-    AP: { x: 46, y: 78 },
-    KA: { x: 32, y: 79 },
-    TN: { x: 42, y: 88 },
-    KL: { x: 35, y: 90 }
+    JK: { x: 36, y: 12 },
+    HP: { x: 42, y: 20 },
+    PB: { x: 30, y: 23 },
+    HR: { x: 36, y: 29 },
+    DL: { x: 40, y: 32 },
+    UK: { x: 47, y: 25 },
+    RJ: { x: 23, y: 38 },
+    UP: { x: 52, y: 36 },
+    BR: { x: 69, y: 40 },
+    SK: { x: 80, y: 35 },
+    AS: { x: 92, y: 38 },
+    ML: { x: 93, y: 44 },
+    GJ: { x: 12, y: 49 },
+    MP: { x: 43, y: 51 },
+    CG: { x: 58, y: 55 },
+    JH: { x: 71, y: 48 },
+    WB: { x: 81, y: 50 },
+    OD: { x: 68, y: 61 },
+    MH: { x: 32, y: 63 },
+    GA: { x: 23, y: 74 },
+    TG: { x: 48, y: 67 },
+    AP: { x: 49, y: 76 },
+    KA: { x: 32, y: 77 },
+    TN: { x: 45, y: 86 },
+    KL: { x: 36, y: 88 }
   };
 
   return (
@@ -44,7 +44,7 @@ export function IndiaMap({ onSelectParty }: { onSelectParty: (partyCode: string)
           <p className="eyebrow"><MapPin className="size-3" /> State Power Architecture · 2026 Interactive Map</p>
           <h2 className="text-3xl font-bold font-serif mt-2 text-slate-900 dark:text-white">National Political Power Map</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl">
-            Real-time political control across India's 28 States & UTs. Hover over any state node on the custom map outline to inspect party control and leadership.
+            Real-time political control across India's 28 States & UTs. Hover over any state node on the custom map artwork to inspect party control and leadership.
           </p>
         </div>
 
@@ -83,24 +83,19 @@ export function IndiaMap({ onSelectParty }: { onSelectParty: (partyCode: string)
         </div>
       </div>
 
-      {/* Custom Outline Map Container */}
-      <div className="relative w-full min-h-[580px] bg-slate-50 dark:bg-slate-950/70 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex items-center justify-center p-6 shadow-inner">
+      {/* Map Display Container */}
+      <div className="relative w-full min-h-[620px] bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden flex items-center justify-center p-6 shadow-inner">
         {/* Background Grid Lines */}
-        <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] dark:bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none" />
 
-        {/* Outline Map Display Container */}
-        <div className="relative w-full max-w-[620px] h-[540px]">
-          {/* User's Exact Custom Indian Map Outline Image */}
+        {/* Map Image Container */}
+        <div className="relative w-full max-w-[620px] h-[560px] flex items-center justify-center">
+          {/* User Specified Map Screenshot Image */}
           <img
             src="/india-outline-custom.png"
-            alt="Custom Outline of India"
-            className="w-full h-full object-contain filter mix-blend-multiply dark:mix-blend-normal dark:invert dark:opacity-85 opacity-90 transition-all drop-shadow-xl"
+            alt="State Power Map Artwork"
+            className="w-full h-full object-contain rounded-2xl shadow-2xl border border-slate-800/60"
           />
-
-          {/* Watermark Label */}
-          <span className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-600 pointer-events-none">
-            REPUBLIC OF INDIA · STATE POWER MAP
-          </span>
 
           {/* State 3D Badge Nodes placed geographically over silhouette */}
           {STATE_CONTROL_MAP.map((st) => {
@@ -122,11 +117,11 @@ export function IndiaMap({ onSelectParty }: { onSelectParty: (partyCode: string)
                   className={`relative flex items-center gap-1.5 px-2.5 py-1 rounded-2xl border transition-all duration-300 transform-gpu ${
                     isHovered || isSelected
                       ? "scale-125 -translate-y-2 shadow-2xl z-30 ring-2 ring-amber-400 border-white bg-slate-900 text-white"
-                      : "scale-100 shadow-lg border-slate-300 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 hover:scale-110 text-slate-900 dark:text-white"
+                      : "scale-100 shadow-lg border-slate-700 bg-slate-900/90 hover:scale-110 text-white"
                   }`}
                   style={{ transformStyle: "preserve-3d" }}
                 >
-                  <div className="size-5 rounded-md bg-slate-100 dark:bg-slate-800 p-0.5 flex items-center justify-center border border-slate-200 dark:border-slate-700 shrink-0">
+                  <div className="size-5 rounded-md bg-slate-800 p-0.5 flex items-center justify-center border border-slate-700 shrink-0">
                     <img
                       src={st.icon}
                       alt={st.rulingParty}
