@@ -39,9 +39,11 @@ import { ALL_MEMBERS, LeaderMember, HierarchyTier, VerificationLink } from "./da
 import { NATIONAL_PARTIES, REGIONAL_PARTIES, STATE_CONTROL_MAP, PARLIAMENT_DEBATES } from "./data/partiesData";
 import { IndiaMap } from "./components/IndiaMap";
 import { ParliamentDesk } from "./components/ParliamentDesk";
+import { CompareView } from "./components/CompareView";
+import { NewsDesk } from "./components/NewsDesk";
+import { RightsHub } from "./components/RightsHub";
 
 type Screen = "hierarchy" | "party" | "map" | "parliament" | "compare" | "news" | "rights" | "explainer";
-type Topic = "National" | "Geopolitics" | "Economy" | "Law & Rights" | "Protest";
 
 const COMMON_SOURCES = {
   constitution: { label: "Legislative Department · Constitution of India", url: "https://legislative.gov.in/constitution-of-india", type: "Official Portal" as const },
@@ -51,8 +53,6 @@ const COMMON_SOURCES = {
   adr: { label: "Association for Democratic Reforms (ADR)", url: "https://adrindia.org/", type: "ADR MyNeta" as const },
   prs: { label: "PRS Legislative Research · MP Track", url: "https://prsindia.org/parliamenttrack", type: "PRS India" as const }
 };
-
-const TOPICS: Topic[] = ["National", "Geopolitics", "Economy", "Law & Rights", "Protest"];
 
 function Nav({
   screen,
@@ -116,7 +116,7 @@ function LeaderCard({ member, onOpen, compact = false }: { member: LeaderMember;
       <div className="leader-top">
         <span>{member.tier.split(":")[0]}</span>
         {member.previousParty ? (
-          <span className="text-[9px] font-extrabold uppercase bg-amber-500 text-white px-2 py-0.5 rounded-full">
+          <span className="text-[9px] font-extrabold uppercase bg-amber-500 text-white px-2 py-0.5 rounded-full shadow-sm">
             {member.previousParty} → {member.party}
           </span>
         ) : (
@@ -127,7 +127,7 @@ function LeaderCard({ member, onOpen, compact = false }: { member: LeaderMember;
       <div className="avatar-stage">
         <span className="draft-circle" />
         <span className="draft-square" />
-        <img src={member.avatar} alt={`Caricature of ${member.name}`} />
+        <img src={member.avatar} alt={`3D Caricature of ${member.name}`} />
       </div>
 
       <div className="leader-name">
@@ -141,7 +141,7 @@ function LeaderCard({ member, onOpen, compact = false }: { member: LeaderMember;
       {!compact && (
         <div className="leader-proof">
           <BadgeCheck className="size-3 text-emerald-600 dark:text-emerald-400" />
-          <span>Verified ECI Affidavit Record ({member.education.qualification})</span>
+          <span>Verified ECI Record ({member.education.qualification})</span>
         </div>
       )}
     </button>
@@ -181,9 +181,9 @@ function HierarchyExplorer({
   return (
     <section className="shell page">
       <p className="eyebrow"><Network className="size-3" /> Political Leadership Matrix · 2026</p>
-      <h1>Political Power Hierarchy.<br /><em>Verified Leader Profiles.</em></h1>
+      <h1>Political Power Hierarchy.<br /><em>3D Interactive Profiles.</em></h1>
       <p className="page-copy">
-        Explore structured political leadership across recognized parties in India. Select any leader to inspect 100% verified ECI affidavits, financial disclosures, criminal histories, and legislative achievements.
+        Explore national political leadership hierarchies. Hover over any leader caricature to experience 3D popping artwork with full ECI affidavit verification.
       </p>
 
       {/* Filter Toolbar */}
@@ -303,15 +303,15 @@ function ProfileDetail({
   return (
     <section className="shell page">
       <button className="back-link" onClick={() => back(member.party)}>
-        <ArrowLeft className="size-4" /> Back to Hierarchy Explorer
+        <ArrowLeft className="size-4" /> Back to Leadership Hierarchy
       </button>
 
-      {/* Special Transition Alert if member switched parties */}
+      {/* Special Transition Alert */}
       {member.specialNotice && (
         <div className="my-4 p-4 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-900 dark:text-amber-200">
           <div className="flex items-center gap-2 font-bold text-sm">
             <RefreshCw className="size-4 text-amber-600 animate-spin" />
-            <span>Party Transition Notice</span>
+            <span>Political Realignment Notice</span>
           </div>
           <p className="text-xs mt-1 leading-relaxed">{member.specialNotice}</p>
         </div>
@@ -319,8 +319,8 @@ function ProfileDetail({
 
       <div className="profile-hero">
         <div className="profile-portrait">
-          <img src={member.avatar} alt={`Caricature portrait of ${member.name}`} />
-          <span>Verified Local Asset</span>
+          <img src={member.avatar} alt={`3D portrait of ${member.name}`} />
+          <span>3D Interactive Asset</span>
         </div>
         <div>
           <p className="eyebrow">
@@ -340,7 +340,7 @@ function ProfileDetail({
         </div>
       </div>
 
-      {/* Detail Tabs */}
+      {/* Tabs */}
       <div className="profile-tabs">
         <button className={activeTab === "all" ? "tab-active" : ""} onClick={() => setActiveTab("all")}>All Verified Records</button>
         <button className={activeTab === "education" ? "tab-active" : ""} onClick={() => setActiveTab("education")}>Education</button>
@@ -418,7 +418,7 @@ function ProfileDetail({
         )}
       </div>
 
-      {/* Development Contributions */}
+      {/* Contributions */}
       {(activeTab === "all" || activeTab === "contributions") && (
         <div className="my-8">
           <h2 className="font-serif font-bold text-2xl mb-4">Development Contributions & Policy Impact</h2>
@@ -436,7 +436,7 @@ function ProfileDetail({
         </div>
       )}
 
-      {/* Same Party Teammates */}
+      {/* Teammates */}
       {samePartyMembers.length > 0 && (
         <div className="my-10">
           <h3 className="font-serif font-bold text-xl mb-4">Other Verified Leaders in {member.partyName}</h3>
@@ -466,9 +466,9 @@ function PartyDirectory({
         Browse national and major regional political party structures across India. Every party folder breaks down into Tier 1 Supreme Leadership, Union/State Ministers, and Members of Parliament.
       </p>
 
-      {/* National Party Folders */}
+      {/* National Folders */}
       <div className="party-folders my-8">
-        {NATIONAL_PARTIES.filter((p) => p.code !== "ALL").map((party, index) => {
+        {NATIONAL_PARTIES.filter((p) => p.code !== "ALL").map((party) => {
           const members = ALL_MEMBERS.filter((m) => m.party === party.code);
           return (
             <article key={party.code} className="party-folder card-3d p-6 rounded-3xl mb-6">
@@ -498,7 +498,7 @@ function PartyDirectory({
         })}
       </div>
 
-      {/* Major Regional Parties Spectrum Table */}
+      {/* Regional Spectrum */}
       <div className="my-12 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 shadow-lg">
         <div className="mb-6">
           <p className="eyebrow"><Building2 className="size-3" /> Major Regional Parties & Coalition Forces</p>
@@ -549,42 +549,6 @@ function PartyDirectory({
   );
 }
 
-function Compare() {
-  return (
-    <section className="shell page">
-      <p className="eyebrow"><Scale className="size-3" /> Methodology & Transparency</p>
-      <h1>Verified Data Methodology.<br /><em>Source-Linked Integrity.</em></h1>
-      <p className="page-copy">
-        Panopticon processes public records from government and election regulatory bodies without political bias. Every metric is anchored to a primary source document.
-      </p>
-    </section>
-  );
-}
-
-function NewsDesk() {
-  return (
-    <section className="shell page">
-      <p className="eyebrow"><RadioTower className="size-3" /> Live Civic Feed</p>
-      <h1>Verified Political News Desk.<br /><em>Primary Source Linked.</em></h1>
-      <p className="page-copy">
-        Real-time political and legislative developments mapped directly to public verification sources.
-      </p>
-    </section>
-  );
-}
-
-function Rights() {
-  return (
-    <section className="shell page">
-      <p className="eyebrow"><BookOpenCheck className="size-3" /> Legal & Constitutional Framework</p>
-      <h1>Constitutional Rights & Protections.<br /><em>Every Citizen Must Know.</em></h1>
-      <p className="page-copy">
-        Essential fundamental rights under the Constitution of India and criminal procedure protections under Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023.
-      </p>
-    </section>
-  );
-}
-
 function Explainer() {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -601,7 +565,7 @@ function Explainer() {
     if (norm.includes("raghav") || norm.includes("chadha")) {
       return {
         role: "assistant",
-        content: "Raghav Chadha is currently a Rajya Sabha MP aligned with the Bharatiya Janata Party (BJP), having joined on April 24, 2026. Previously, he was AAP's Deputy Leader in Rajya Sabha. He declared ₹3.69 Crore in assets and 2 protest cases in his sworn affidavit.",
+        content: "Raghav Chadha is currently a Rajya Sabha MP aligned with the Bharatiya Janata Party (BJP), having transitioned on April 24, 2026. Previously, he was AAP's Deputy Leader in Rajya Sabha. He declared ₹3.69 Crore in assets and 2 cases in his sworn affidavit.",
         uncertainty: "Low",
         citations: [ALL_MEMBERS.find((m) => m.id === "raghav-chadha")?.verificationLinks[0] || COMMON_SOURCES.eci]
       };
@@ -700,11 +664,17 @@ function AppContent() {
     ) : screen === "profile" ? (
       <ProfileDetail member={selectedMember} back={(partyCode?: string) => openPartyHierarchy(partyCode || "ALL")} onSelectMember={openMember} />
     ) : screen === "compare" ? (
-      <Compare />
+      <section className="shell page">
+        <CompareView />
+      </section>
     ) : screen === "news" ? (
-      <NewsDesk />
+      <section className="shell page">
+        <NewsDesk />
+      </section>
     ) : screen === "rights" ? (
-      <Rights />
+      <section className="shell page">
+        <RightsHub />
+      </section>
     ) : (
       <Explainer />
     );
