@@ -97,16 +97,16 @@ export const ALL_MEMBERS: LeaderMember[] = [
     ]
   },
   {
-    id: "nitin-nabin",
-    name: "Nitin Nabin",
-    office: "National President, BJP",
+    id: "nitin-gadkari",
+    name: "Nitin Gadkari",
+    office: "Union Minister for Road Transport & Highways",
     party: "BJP",
     partyName: "Bharatiya Janata Party",
-    hierarchyRole: "National Party President",
-    avatar: "/avatars/nitin-nabin.png",
+    hierarchyRole: "Union Cabinet Minister (Road Transport & Highways)",
+    avatar: "/avatars/nitin-gadkari.png",
     accent: "#e18a37",
     tier: "Tier 1: Supreme / National Leadership",
-    background: "National President of Bharatiya Janata Party. Key organizational leader and strategist driving national campaigns.",
+    background: "Union Minister of Road Transport and Highways. Senior BJP leader and former National President of BJP (2009–2013). Represents Nagpur Lok Sabha constituency.",
     education: {
       qualification: "Graduate Professional (B.E / B.Tech)",
       institution: "Birla Institute of Technology",

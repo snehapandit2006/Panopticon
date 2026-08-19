@@ -9,7 +9,7 @@ export type PoliticalParty = {
 
 export const NATIONAL_PARTIES: PoliticalParty[] = [
   { code: "ALL", name: "All Political Parties", leader: "Multi-Party Spectrum", icon: "/icons/bjp.png", accent: "#2563eb", note: "Verified Database of all National and Regional Leaders" },
-  { code: "BJP", name: "Bharatiya Janata Party", leader: "Narendra Modi / Nitin Nabin", icon: "/icons/bjp.png", accent: "#e18a37", note: "Governing Party at Centre (NDA Coalition)" },
+  { code: "BJP", name: "Bharatiya Janata Party", leader: "Narendra Modi / Nitin Gadkari", icon: "/icons/bjp.png", accent: "#e18a37", note: "Governing Party at Centre (NDA Coalition)" },
   { code: "INC", name: "Indian National Congress", leader: "Mallikarjun Kharge / Rahul Gandhi", icon: "/icons/congress.png", accent: "#4d73b4", note: "Principal Opposition Party (INDIA Coalition)" },
   { code: "AAP", name: "Aam Aadmi Party", leader: "Arvind Kejriwal / Bhagwant Mann", icon: "/icons/aap.png", accent: "#559dc2", note: "Governing Party in Punjab; Independent Opposition" },
   { code: "TMC", name: "All India Trinamool Congress", leader: "Mamata Banerjee / Abhishek Banerjee", icon: "/icons/tmc.png", accent: "#7a9ac8", note: "Governing Party in West Bengal" },
