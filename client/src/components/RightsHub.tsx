@@ -135,7 +135,7 @@ export function RightsHub() {
           className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 ${
             activeCategory === "constitutional"
               ? "bg-slate-900 text-white shadow-md"
-              : "bg-white/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:border-amber-500"
+              : "bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-amber-500"
           }`}
         >
           <Shield className="size-4 text-amber-500" /> Fundamental Rights (Part III)
@@ -146,7 +146,7 @@ export function RightsHub() {
           className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 ${
             activeCategory === "arrest"
               ? "bg-slate-900 text-white shadow-md"
-              : "bg-white/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:border-amber-500"
+              : "bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-amber-500"
           }`}
         >
           <Gavel className="size-4 text-rose-500" /> BNSS 2023 Arrest Protections
@@ -157,7 +157,7 @@ export function RightsHub() {
           className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 ${
             activeCategory === "scenarios"
               ? "bg-slate-900 text-white shadow-md"
-              : "bg-white/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:border-amber-500"
+              : "bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-amber-500"
           }`}
         >
           <HelpCircle className="size-4 text-blue-500" /> Actionable Legal Guides
