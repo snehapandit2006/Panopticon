@@ -1,5 +1,9 @@
 # Panopticon — Civic Intelligence Platform
 
+[![Live Application](https://img.shields.io/badge/Live%20App-panopticon--civic.onrender.com-blue?style=for-the-badge&logo=render)](https://panopticon-civic.onrender.com/)
+
+🌐 **Live Demo:** [https://panopticon-civic.onrender.com/](https://panopticon-civic.onrender.com/)
+
 Panopticon is a visual, source-first political accountability and civic-intelligence mapping application tailored for Indian political leadership, party structures, rights explainers, and real-time news desk verification.
 
 ---
